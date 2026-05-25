@@ -1,0 +1,136 @@
+! IEEE 123-Bus Test Feeder -- Load Definitions
+! Load types: Spot loads at specific buses
+! Connections: Wye (star) and Delta
+! Phases: Single-phase (1ph) and three-phase (3ph)
+! All loads are constant power (model=1) unless noted
+!
+! Total feeder load: approximately 3490 kW + 1920 kvar
+
+! --------------------------------------------------------------------------
+! Three-Phase Loads (Wye-connected)
+! --------------------------------------------------------------------------
+
+New Load.Load1   bus1=1   phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+New Load.Load2   bus1=2   phases=3 conn=wye   model=1 kv=4.16 kw=20  kvar=10
+New Load.Load4   bus1=4   phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+New Load.Load5   bus1=5   phases=3 conn=wye   model=2 kv=4.16 kw=20  kvar=10
+New Load.Load6   bus1=6   phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+New Load.Load7   bus1=7   phases=3 conn=delta model=1 kv=4.16 kw=20  kvar=10
+New Load.Load9   bus1=9   phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+New Load.Load10  bus1=10  phases=3 conn=wye   model=1 kv=4.16 kw=20  kvar=10
+New Load.Load11  bus1=11  phases=3 conn=wye   model=2 kv=4.16 kw=40  kvar=20
+New Load.Load12  bus1=12  phases=3 conn=delta model=1 kv=4.16 kw=20  kvar=10
+New Load.Load14  bus1=14  phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+New Load.Load15  bus1=15  phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+New Load.Load16  bus1=16  phases=3 conn=wye   model=2 kv=4.16 kw=40  kvar=20
+New Load.Load17  bus1=17  phases=3 conn=delta model=1 kv=4.16 kw=20  kvar=10
+New Load.Load19  bus1=19  phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+New Load.Load20  bus1=20  phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+New Load.Load21  bus1=21  phases=3 conn=wye   model=2 kv=4.16 kw=40  kvar=20
+New Load.Load25  bus1=25  phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+New Load.Load26  bus1=26  phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+New Load.Load27  bus1=27  phases=3 conn=delta model=1 kv=4.16 kw=40  kvar=20
+New Load.Load28  bus1=28  phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+New Load.Load29  bus1=29  phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+New Load.Load30  bus1=30  phases=3 conn=wye   model=2 kv=4.16 kw=40  kvar=20
+New Load.Load31  bus1=31  phases=3 conn=wye   model=1 kv=4.16 kw=20  kvar=10
+New Load.Load32  bus1=32  phases=3 conn=delta model=1 kv=4.16 kw=20  kvar=10
+New Load.Load33  bus1=33  phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+New Load.Load34  bus1=34  phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+New Load.Load35  bus1=35  phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+New Load.Load36  bus1=36  phases=3 conn=wye   model=2 kv=4.16 kw=40  kvar=20
+New Load.Load37  bus1=37  phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+New Load.Load38  bus1=38  phases=3 conn=delta model=1 kv=4.16 kw=20  kvar=10
+New Load.Load39  bus1=39  phases=3 conn=wye   model=1 kv=4.16 kw=20  kvar=10
+New Load.Load40  bus1=40  phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+New Load.Load41  bus1=41  phases=3 conn=wye   model=1 kv=4.16 kw=20  kvar=10
+New Load.Load42  bus1=42  phases=3 conn=wye   model=2 kv=4.16 kw=20  kvar=10
+New Load.Load43  bus1=43  phases=3 conn=delta model=1 kv=4.16 kw=40  kvar=20
+New Load.Load44  bus1=44  phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+New Load.Load48  bus1=48  phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+New Load.Load49  bus1=49  phases=3 conn=wye   model=2 kv=4.16 kw=40  kvar=20
+New Load.Load50  bus1=50  phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+New Load.Load51  bus1=51  phases=3 conn=wye   model=1 kv=4.16 kw=20  kvar=10
+New Load.Load52  bus1=52  phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+New Load.Load53  bus1=53  phases=3 conn=delta model=1 kv=4.16 kw=40  kvar=20
+New Load.Load54  bus1=54  phases=3 conn=wye   model=1 kv=4.16 kw=20  kvar=10
+New Load.Load55  bus1=55  phases=3 conn=wye   model=1 kv=4.16 kw=20  kvar=10
+New Load.Load58  bus1=58  phases=3 conn=wye   model=1 kv=4.16 kw=20  kvar=10
+New Load.Load59  bus1=59  phases=3 conn=wye   model=2 kv=4.16 kw=20  kvar=10
+New Load.Load60  bus1=60  phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+New Load.Load61  bus1=61  phases=3 conn=wye   model=1 kv=4.16 kw=20  kvar=10
+New Load.Load62  bus1=62  phases=3 conn=delta model=1 kv=4.16 kw=40  kvar=20
+New Load.Load63  bus1=63  phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+New Load.Load64  bus1=64  phases=3 conn=wye   model=1 kv=4.16 kw=20  kvar=10
+New Load.Load65  bus1=65  phases=3 conn=wye   model=2 kv=4.16 kw=40  kvar=20
+New Load.Load66  bus1=66  phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+New Load.Load67  bus1=67  phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+New Load.Load72  bus1=72  phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+New Load.Load73  bus1=73  phases=3 conn=delta model=1 kv=4.16 kw=40  kvar=20
+New Load.Load74  bus1=74  phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+New Load.Load75  bus1=75  phases=3 conn=wye   model=2 kv=4.16 kw=20  kvar=10
+New Load.Load76  bus1=76  phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+New Load.Load77  bus1=77  phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+New Load.Load78  bus1=78  phases=3 conn=delta model=1 kv=4.16 kw=20  kvar=10
+New Load.Load79  bus1=79  phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+New Load.Load80  bus1=80  phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+New Load.Load81  bus1=81  phases=3 conn=wye   model=2 kv=4.16 kw=40  kvar=20
+New Load.Load82  bus1=82  phases=3 conn=wye   model=1 kv=4.16 kw=20  kvar=10
+New Load.Load83  bus1=83  phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+New Load.Load86  bus1=86  phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+New Load.Load87  bus1=87  phases=3 conn=wye   model=2 kv=4.16 kw=40  kvar=20
+New Load.Load88  bus1=88  phases=3 conn=delta model=1 kv=4.16 kw=20  kvar=10
+New Load.Load89  bus1=89  phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+New Load.Load90  bus1=90  phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+New Load.Load91  bus1=91  phases=3 conn=wye   model=1 kv=4.16 kw=20  kvar=10
+New Load.Load92  bus1=92  phases=3 conn=wye   model=2 kv=4.16 kw=40  kvar=20
+New Load.Load93  bus1=93  phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+New Load.Load94  bus1=94  phases=3 conn=delta model=1 kv=4.16 kw=20  kvar=10
+New Load.Load95  bus1=95  phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+New Load.Load96  bus1=96  phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+New Load.Load97  bus1=97  phases=3 conn=wye   model=1 kv=4.16 kw=20  kvar=10
+New Load.Load98  bus1=98  phases=3 conn=wye   model=2 kv=4.16 kw=20  kvar=10
+New Load.Load99  bus1=99  phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+New Load.Load100 bus1=100 phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+New Load.Load101 bus1=101 phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+New Load.Load106 bus1=106 phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+New Load.Load107 bus1=107 phases=3 conn=delta model=1 kv=4.16 kw=40  kvar=20
+New Load.Load108 bus1=108 phases=3 conn=wye   model=1 kv=4.16 kw=20  kvar=10
+New Load.Load109 bus1=109 phases=3 conn=wye   model=2 kv=4.16 kw=40  kvar=20
+New Load.Load110 bus1=110 phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+New Load.Load111 bus1=111 phases=3 conn=wye   model=1 kv=4.16 kw=20  kvar=10
+New Load.Load112 bus1=112 phases=3 conn=delta model=1 kv=4.16 kw=40  kvar=20
+New Load.Load113 bus1=113 phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+New Load.Load116 bus1=116 phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+New Load.Load117 bus1=117 phases=3 conn=wye   model=2 kv=4.16 kw=20  kvar=10
+New Load.Load118 bus1=118 phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+New Load.Load121 bus1=121 phases=3 conn=wye   model=1 kv=4.16 kw=20  kvar=10
+New Load.Load122 bus1=122 phases=3 conn=delta model=1 kv=4.16 kw=40  kvar=20
+New Load.Load123 bus1=123 phases=3 conn=wye   model=1 kv=4.16 kw=40  kvar=20
+
+! --------------------------------------------------------------------------
+! Single-Phase Loads
+! --------------------------------------------------------------------------
+
+New Load.Load22  bus1=22.1  phases=1 conn=wye model=1 kv=2.402 kw=20  kvar=10
+New Load.Load23  bus1=23.1  phases=1 conn=wye model=1 kv=2.402 kw=20  kvar=10
+New Load.Load24  bus1=24.1  phases=1 conn=wye model=1 kv=2.402 kw=40  kvar=20
+New Load.Load45  bus1=45.2  phases=1 conn=wye model=1 kv=2.402 kw=20  kvar=10
+New Load.Load46  bus1=46.2  phases=1 conn=wye model=2 kv=2.402 kw=20  kvar=10
+New Load.Load47  bus1=47.2  phases=1 conn=wye model=1 kv=2.402 kw=40  kvar=20
+New Load.Load56  bus1=56.2  phases=1 conn=wye model=1 kv=2.402 kw=20  kvar=10
+New Load.Load57  bus1=57.2  phases=1 conn=wye model=1 kv=2.402 kw=20  kvar=10
+New Load.Load68  bus1=68.3  phases=1 conn=wye model=1 kv=2.402 kw=20  kvar=10
+New Load.Load69  bus1=69.3  phases=1 conn=wye model=2 kv=2.402 kw=40  kvar=20
+New Load.Load70  bus1=70.1  phases=1 conn=wye model=1 kv=2.402 kw=20  kvar=10
+New Load.Load71  bus1=71.1  phases=1 conn=wye model=1 kv=2.402 kw=40  kvar=20
+New Load.Load84  bus1=84.1  phases=1 conn=wye model=1 kv=2.402 kw=20  kvar=10
+New Load.Load85  bus1=85.1  phases=1 conn=wye model=2 kv=2.402 kw=20  kvar=10
+New Load.Load102 bus1=102.2 phases=1 conn=wye model=1 kv=2.402 kw=20  kvar=10
+New Load.Load103 bus1=103.2 phases=1 conn=wye model=1 kv=2.402 kw=40  kvar=20
+New Load.Load104 bus1=104.3 phases=1 conn=wye model=1 kv=2.402 kw=20  kvar=10
+New Load.Load105 bus1=105.3 phases=1 conn=wye model=2 kv=2.402 kw=40  kvar=20
+New Load.Load114 bus1=114.1 phases=1 conn=wye model=1 kv=2.402 kw=20  kvar=10
+New Load.Load115 bus1=115.1 phases=1 conn=wye model=1 kv=2.402 kw=20  kvar=10
+New Load.Load119 bus1=119.2 phases=1 conn=wye model=1 kv=2.402 kw=20  kvar=10
+New Load.Load120 bus1=120.2 phases=1 conn=wye model=2 kv=2.402 kw=40  kvar=20

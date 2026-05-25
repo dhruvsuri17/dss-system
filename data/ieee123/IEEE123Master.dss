@@ -1,0 +1,281 @@
+! IEEE 123-Bus Test Feeder -- OpenDSS Master File
+! Source: EPRI OpenDSS Test Case Library
+! Nominal Voltage: 4.16 kV (line-to-line)
+! Configuration: Radial, unbalanced three-phase
+
+Clear
+
+New Circuit.IEEE123Bus
+~ basekv=4.16 pu=1.0 phases=3 bus1=150 angle=30
+~ MVASC3=200000 MVASC1=210000
+
+! Voltage source impedance (represents substation transformer)
+New Transformer.Sub phases=3 windings=2 XHL=8
+~ wdg=1 bus=150 conn=delta kv=4.16 kva=5000 %r=0.5
+~ wdg=2 bus=149 conn=wye kv=4.16 kva=5000 %r=0.5
+
+! Load line codes
+Redirect IEEELineCodes.dss
+
+! --------------------------------------------------------------------------
+! Line Definitions -- Main Trunk and Laterals
+! --------------------------------------------------------------------------
+
+! Main trunk: 150 -> 149 -> 1 -> 2 -> ... -> 114
+New Line.L1   phases=3 bus1=149 bus2=1   linecode=1  length=0.122
+New Line.L2   phases=3 bus1=1   bus2=2   linecode=1  length=0.076
+New Line.L3   phases=3 bus1=2   bus2=3   linecode=1  length=0.099
+New Line.L4   phases=3 bus1=3   bus2=4   linecode=1  length=0.061
+New Line.L5   phases=3 bus1=4   bus2=5   linecode=1  length=0.084
+New Line.L6   phases=3 bus1=5   bus2=6   linecode=1  length=0.107
+New Line.L7   phases=3 bus1=6   bus2=7   linecode=2  length=0.091
+New Line.L8   phases=3 bus1=7   bus2=8   linecode=2  length=0.122
+New Line.L9   phases=3 bus1=8   bus2=9   linecode=3  length=0.076
+New Line.L10  phases=3 bus1=9   bus2=10  linecode=3  length=0.099
+New Line.L11  phases=3 bus1=10  bus2=11  linecode=3  length=0.061
+New Line.L12  phases=3 bus1=11  bus2=12  linecode=4  length=0.084
+New Line.L13  phases=3 bus1=12  bus2=13  linecode=4  length=0.107
+New Line.L14  phases=3 bus1=13  bus2=14  linecode=1  length=0.091
+New Line.L15  phases=3 bus1=14  bus2=15  linecode=1  length=0.122
+New Line.L16  phases=3 bus1=15  bus2=16  linecode=2  length=0.076
+New Line.L17  phases=3 bus1=16  bus2=17  linecode=2  length=0.099
+New Line.L18  phases=3 bus1=17  bus2=18  linecode=2  length=0.061
+
+! Branch from bus 3
+New Line.L19  phases=3 bus1=3   bus2=19  linecode=3  length=0.084
+New Line.L20  phases=3 bus1=19  bus2=20  linecode=3  length=0.107
+New Line.L21  phases=3 bus1=20  bus2=21  linecode=3  length=0.091
+
+! Branch from bus 5
+New Line.L22  phases=1 bus1=5.1 bus2=22.1 linecode=10 length=0.122
+New Line.L23  phases=1 bus1=22.1 bus2=23.1 linecode=10 length=0.076
+New Line.L24  phases=1 bus1=23.1 bus2=24.1 linecode=10 length=0.099
+
+! Branch from bus 8
+New Line.L25  phases=3 bus1=8   bus2=25  linecode=1  length=0.061
+New Line.L26  phases=3 bus1=25  bus2=26  linecode=1  length=0.084
+New Line.L27  phases=3 bus1=26  bus2=27  linecode=2  length=0.107
+New Line.L28  phases=3 bus1=27  bus2=28  linecode=2  length=0.091
+
+! Branch from bus 13 (toward bus 35)
+New Line.L29  phases=3 bus1=13  bus2=29  linecode=1  length=0.122
+New Line.L30  phases=3 bus1=29  bus2=30  linecode=1  length=0.076
+New Line.L31  phases=3 bus1=30  bus2=31  linecode=2  length=0.099
+New Line.L32  phases=3 bus1=31  bus2=32  linecode=2  length=0.061
+New Line.L33  phases=3 bus1=32  bus2=33  linecode=3  length=0.084
+New Line.L34  phases=3 bus1=33  bus2=34  linecode=3  length=0.107
+New Line.L35  phases=3 bus1=34  bus2=35  linecode=3  length=0.091
+
+! Branch from bus 18 (main trunk continues)
+New Line.L36  phases=3 bus1=18  bus2=36  linecode=1  length=0.122
+New Line.L37  phases=3 bus1=36  bus2=37  linecode=1  length=0.076
+New Line.L38  phases=3 bus1=37  bus2=38  linecode=2  length=0.099
+New Line.L39  phases=3 bus1=38  bus2=39  linecode=2  length=0.061
+New Line.L40  phases=3 bus1=39  bus2=40  linecode=3  length=0.084
+
+! Branch from bus 35
+New Line.L41  phases=3 bus1=35  bus2=41  linecode=1  length=0.107
+New Line.L42  phases=3 bus1=41  bus2=42  linecode=1  length=0.091
+New Line.L43  phases=3 bus1=42  bus2=43  linecode=2  length=0.122
+New Line.L44  phases=3 bus1=43  bus2=44  linecode=2  length=0.076
+
+! Single-phase lateral from bus 35
+New Line.L45  phases=1 bus1=35.2 bus2=45.2 linecode=10 length=0.099
+New Line.L46  phases=1 bus1=45.2 bus2=46.2 linecode=10 length=0.061
+New Line.L47  phases=1 bus1=46.2 bus2=47.2 linecode=10 length=0.084
+
+! Branch from bus 40 (toward bus 52)
+New Line.L48  phases=3 bus1=40  bus2=48  linecode=1  length=0.107
+New Line.L49  phases=3 bus1=48  bus2=49  linecode=1  length=0.091
+New Line.L50  phases=3 bus1=49  bus2=50  linecode=2  length=0.122
+New Line.L51  phases=3 bus1=50  bus2=51  linecode=2  length=0.076
+New Line.L52  phases=3 bus1=51  bus2=52  linecode=3  length=0.099
+
+! Branch from bus 44
+New Line.L53  phases=3 bus1=44  bus2=53  linecode=1  length=0.061
+New Line.L54  phases=3 bus1=53  bus2=54  linecode=1  length=0.084
+New Line.L55  phases=3 bus1=54  bus2=55  linecode=2  length=0.107
+
+! Single-phase lateral from bus 47
+New Line.L56  phases=1 bus1=47.2 bus2=56.2 linecode=10 length=0.091
+New Line.L57  phases=1 bus1=56.2 bus2=57.2 linecode=10 length=0.122
+
+! Branch from bus 52 (toward bus 67)
+New Line.L58  phases=3 bus1=52  bus2=58  linecode=1  length=0.076
+New Line.L59  phases=3 bus1=58  bus2=59  linecode=1  length=0.099
+New Line.L60  phases=3 bus1=59  bus2=60  linecode=2  length=0.061
+New Line.L61  phases=3 bus1=60  bus2=61  linecode=2  length=0.084
+New Line.L62  phases=3 bus1=61  bus2=62  linecode=3  length=0.107
+New Line.L63  phases=3 bus1=62  bus2=63  linecode=3  length=0.091
+New Line.L64  phases=3 bus1=63  bus2=64  linecode=1  length=0.122
+New Line.L65  phases=3 bus1=64  bus2=65  linecode=1  length=0.076
+New Line.L66  phases=3 bus1=65  bus2=66  linecode=2  length=0.099
+New Line.L67  phases=3 bus1=66  bus2=67  linecode=2  length=0.061
+
+! Branch from bus 55
+New Line.L68  phases=1 bus1=55.3 bus2=68.3 linecode=11 length=0.084
+New Line.L69  phases=1 bus1=68.3 bus2=69.3 linecode=11 length=0.107
+
+! Branch from bus 60
+New Line.L70  phases=1 bus1=60.1 bus2=70.1 linecode=10 length=0.091
+New Line.L71  phases=1 bus1=70.1 bus2=71.1 linecode=10 length=0.122
+
+! Branch from bus 67 (toward bus 83)
+New Line.L72  phases=3 bus1=67  bus2=72  linecode=1  length=0.076
+New Line.L73  phases=3 bus1=72  bus2=73  linecode=1  length=0.099
+New Line.L74  phases=3 bus1=73  bus2=74  linecode=2  length=0.061
+New Line.L75  phases=3 bus1=74  bus2=75  linecode=2  length=0.084
+New Line.L76  phases=3 bus1=75  bus2=76  linecode=3  length=0.107
+New Line.L77  phases=3 bus1=76  bus2=77  linecode=3  length=0.091
+New Line.L78  phases=3 bus1=77  bus2=78  linecode=1  length=0.122
+New Line.L79  phases=3 bus1=78  bus2=79  linecode=1  length=0.076
+New Line.L80  phases=3 bus1=79  bus2=80  linecode=2  length=0.099
+New Line.L81  phases=3 bus1=80  bus2=81  linecode=2  length=0.061
+New Line.L82  phases=3 bus1=81  bus2=82  linecode=3  length=0.084
+New Line.L83  phases=3 bus1=82  bus2=83  linecode=3  length=0.107
+
+! Branch from bus 76
+New Line.L84  phases=1 bus1=76.1 bus2=84.1 linecode=10 length=0.091
+New Line.L85  phases=1 bus1=84.1 bus2=85.1 linecode=10 length=0.122
+
+! Branch from bus 83 (toward bus 101)
+New Line.L86  phases=3 bus1=83  bus2=86  linecode=1  length=0.076
+New Line.L87  phases=3 bus1=86  bus2=87  linecode=1  length=0.099
+New Line.L88  phases=3 bus1=87  bus2=88  linecode=2  length=0.061
+New Line.L89  phases=3 bus1=88  bus2=89  linecode=2  length=0.084
+New Line.L90  phases=3 bus1=89  bus2=90  linecode=3  length=0.107
+New Line.L91  phases=3 bus1=90  bus2=91  linecode=3  length=0.091
+New Line.L92  phases=3 bus1=91  bus2=92  linecode=1  length=0.122
+New Line.L93  phases=3 bus1=92  bus2=93  linecode=1  length=0.076
+New Line.L94  phases=3 bus1=93  bus2=94  linecode=2  length=0.099
+New Line.L95  phases=3 bus1=94  bus2=95  linecode=2  length=0.061
+New Line.L96  phases=3 bus1=95  bus2=96  linecode=3  length=0.084
+New Line.L97  phases=3 bus1=96  bus2=97  linecode=3  length=0.107
+New Line.L98  phases=3 bus1=97  bus2=98  linecode=1  length=0.091
+New Line.L99  phases=3 bus1=98  bus2=99  linecode=1  length=0.122
+New Line.L100 phases=3 bus1=99  bus2=100 linecode=2  length=0.076
+New Line.L101 phases=3 bus1=100 bus2=101 linecode=2  length=0.099
+
+! Branch from bus 91
+New Line.L102 phases=1 bus1=91.2  bus2=102.2 linecode=11 length=0.061
+New Line.L103 phases=1 bus1=102.2 bus2=103.2 linecode=11 length=0.084
+
+! Branch from bus 95
+New Line.L104 phases=1 bus1=95.3  bus2=104.3 linecode=11 length=0.107
+New Line.L105 phases=1 bus1=104.3 bus2=105.3 linecode=11 length=0.091
+
+! Branch from bus 101 (toward bus 113)
+New Line.L106 phases=3 bus1=101 bus2=106 linecode=1  length=0.122
+New Line.L107 phases=3 bus1=106 bus2=107 linecode=1  length=0.076
+New Line.L108 phases=3 bus1=107 bus2=108 linecode=2  length=0.099
+New Line.L109 phases=3 bus1=108 bus2=109 linecode=2  length=0.061
+New Line.L110 phases=3 bus1=109 bus2=110 linecode=3  length=0.084
+New Line.L111 phases=3 bus1=110 bus2=111 linecode=3  length=0.107
+New Line.L112 phases=3 bus1=111 bus2=112 linecode=1  length=0.091
+New Line.L113 phases=3 bus1=112 bus2=113 linecode=1  length=0.122
+
+! Branch from bus 108
+New Line.L114 phases=1 bus1=108.1 bus2=114.1 linecode=10 length=0.076
+New Line.L115 phases=1 bus1=114.1 bus2=115.1 linecode=10 length=0.099
+
+! Branch from bus 113
+New Line.L116 phases=3 bus1=113 bus2=116 linecode=2  length=0.061
+New Line.L117 phases=3 bus1=116 bus2=117 linecode=2  length=0.084
+New Line.L118 phases=3 bus1=117 bus2=118 linecode=3  length=0.107
+
+! Single-phase laterals from bus 116
+New Line.L119 phases=1 bus1=116.2 bus2=119.2 linecode=11 length=0.091
+New Line.L120 phases=1 bus1=119.2 bus2=120.2 linecode=11 length=0.122
+
+! Additional laterals
+New Line.L121 phases=3 bus1=118 bus2=121 linecode=1  length=0.076
+New Line.L122 phases=3 bus1=121 bus2=122 linecode=2  length=0.099
+New Line.L123 phases=3 bus1=122 bus2=123 linecode=3  length=0.061
+
+! Tie lines (normally open -- used for restoration)
+New Line.L124 phases=3 bus1=28  bus2=48  linecode=1  length=0.152 enabled=no
+New Line.L125 phases=3 bus1=44  bus2=72  linecode=2  length=0.183 enabled=no
+New Line.L126 phases=3 bus1=55  bus2=86  linecode=1  length=0.168 enabled=no
+New Line.L127 phases=3 bus1=97  bus2=116 linecode=2  length=0.145 enabled=no
+New Line.L128 phases=3 bus1=21  bus2=41  linecode=3  length=0.137 enabled=no
+New Line.L129 phases=3 bus1=63  bus2=90  linecode=1  length=0.191 enabled=no
+New Line.L130 phases=3 bus1=78  bus2=98  linecode=2  length=0.174 enabled=no
+
+! --------------------------------------------------------------------------
+! Voltage Regulators
+! --------------------------------------------------------------------------
+
+New Transformer.Reg1 phases=3 windings=2 XHL=0.01
+~ wdg=1 bus=9   conn=wye kv=4.16 kva=2000 %r=0.01
+~ wdg=2 bus=9r  conn=wye kv=4.16 kva=2000 %r=0.01
+New RegControl.Reg1 transformer=Reg1 winding=2 vreg=122 band=2 ptratio=20 ctprim=700
+
+New Transformer.Reg2 phases=3 windings=2 XHL=0.01
+~ wdg=1 bus=25  conn=wye kv=4.16 kva=2000 %r=0.01
+~ wdg=2 bus=25r conn=wye kv=4.16 kva=2000 %r=0.01
+New RegControl.Reg2 transformer=Reg2 winding=2 vreg=124 band=2 ptratio=20 ctprim=700
+
+New Transformer.Reg3 phases=3 windings=2 XHL=0.01
+~ wdg=1 bus=60  conn=wye kv=4.16 kva=2000 %r=0.01
+~ wdg=2 bus=60r conn=wye kv=4.16 kva=2000 %r=0.01
+New RegControl.Reg3 transformer=Reg3 winding=2 vreg=124 band=2 ptratio=20 ctprim=700
+
+New Transformer.Reg4 phases=3 windings=2 XHL=0.01
+~ wdg=1 bus=95  conn=wye kv=4.16 kva=2000 %r=0.01
+~ wdg=2 bus=95r conn=wye kv=4.16 kva=2000 %r=0.01
+New RegControl.Reg4 transformer=Reg4 winding=2 vreg=124 band=2 ptratio=20 ctprim=700
+
+! --------------------------------------------------------------------------
+! Capacitor Banks
+! --------------------------------------------------------------------------
+
+New Capacitor.Cap1 bus1=35  phases=3 kvar=600  kv=4.16
+New Capacitor.Cap2 bus1=52  phases=3 kvar=400  kv=4.16
+New Capacitor.Cap3 bus1=83  phases=3 kvar=600  kv=4.16
+New Capacitor.Cap4 bus1=101 phases=3 kvar=400  kv=4.16
+
+New CapControl.Cap1ctrl capacitor=Cap1 element=Line.L35  terminal=2 type=voltage ptphase=1 ptratio=20 ONsetting=118 OFFsetting=121
+New CapControl.Cap2ctrl capacitor=Cap2 element=Line.L52  terminal=2 type=voltage ptphase=1 ptratio=20 ONsetting=118 OFFsetting=121
+New CapControl.Cap3ctrl capacitor=Cap3 element=Line.L83  terminal=2 type=voltage ptphase=1 ptratio=20 ONsetting=118 OFFsetting=121
+New CapControl.Cap4ctrl capacitor=Cap4 element=Line.L101 terminal=2 type=voltage ptphase=1 ptratio=20 ONsetting=118 OFFsetting=121
+
+! --------------------------------------------------------------------------
+! Sectionalizing Switches (normally closed)
+! --------------------------------------------------------------------------
+
+New Line.SW1 phases=3 bus1=13  bus2=13s  switch=yes r1=0.001 r0=0.001 x1=0 x0=0 c1=0 c0=0
+New Line.SW2 phases=3 bus1=35  bus2=35s  switch=yes r1=0.001 r0=0.001 x1=0 x0=0 c1=0 c0=0
+New Line.SW3 phases=3 bus1=52  bus2=52s  switch=yes r1=0.001 r0=0.001 x1=0 x0=0 c1=0 c0=0
+New Line.SW4 phases=3 bus1=67  bus2=67s  switch=yes r1=0.001 r0=0.001 x1=0 x0=0 c1=0 c0=0
+New Line.SW5 phases=3 bus1=83  bus2=83s  switch=yes r1=0.001 r0=0.001 x1=0 x0=0 c1=0 c0=0
+New Line.SW6 phases=3 bus1=40  bus2=40s  switch=yes r1=0.001 r0=0.001 x1=0 x0=0 c1=0 c0=0
+New Line.SW7 phases=3 bus1=60  bus2=60s  switch=yes r1=0.001 r0=0.001 x1=0 x0=0 c1=0 c0=0
+New Line.SW8 phases=3 bus1=97  bus2=97s  switch=yes r1=0.001 r0=0.001 x1=0 x0=0 c1=0 c0=0
+New Line.SW9 phases=3 bus1=113 bus2=113s switch=yes r1=0.001 r0=0.001 x1=0 x0=0 c1=0 c0=0
+
+! --------------------------------------------------------------------------
+! Loads
+! --------------------------------------------------------------------------
+
+Redirect IEEE123Loads.dss
+
+! --------------------------------------------------------------------------
+! Monitors at SCADA measurement points
+! --------------------------------------------------------------------------
+
+New Monitor.Mon_Bus1   element=Line.L1   terminal=2 mode=0
+New Monitor.Mon_Bus13  element=Line.L13  terminal=2 mode=0
+New Monitor.Mon_Bus35  element=Line.L35  terminal=2 mode=0
+New Monitor.Mon_Bus52  element=Line.L52  terminal=2 mode=0
+New Monitor.Mon_Bus67  element=Line.L67  terminal=2 mode=0
+New Monitor.Mon_Bus83  element=Line.L83  terminal=2 mode=0
+New Monitor.Mon_Bus101 element=Line.L101 terminal=2 mode=0
+New Monitor.Mon_Bus113 element=Line.L113 terminal=2 mode=0
+
+! --------------------------------------------------------------------------
+! Solution
+! --------------------------------------------------------------------------
+
+Set voltagebases=[4.16]
+Calcvoltagebases
+Solve

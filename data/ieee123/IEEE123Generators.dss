@@ -1,0 +1,7 @@
+! IEEE 123-Bus Test Feeder -- Generator Definitions
+! No distributed generation in the base case.
+! This file is included for completeness and forward compatibility.
+!
+! If distributed energy resources (DER) are added, define them here.
+! Example:
+! New Generator.DG1 bus1=67 phases=3 model=1 kv=4.16 kw=500 kvar=100
