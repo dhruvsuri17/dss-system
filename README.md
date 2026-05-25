@@ -69,7 +69,7 @@ A modular Python class that simulates fault conditions anywhere on the network a
 
 ### 3. Dataset Generator (`src/generate_dataset.py`)
 
-A command-line tool that uses the fault simulator to produce labeled training/test datasets in NumPy format. You control:
+A command-line tool that uses the fault simulator to produce labeled development, training, and test datasets in NumPy format. You control:
 
 - Number of samples
 - Fault type distribution
@@ -92,6 +92,8 @@ The `export_graph_for_gnn()` function produces:
 
 ## Quick Start
 
+Use a tiny generated dataset for fast development, then scale up to larger generated train/test datasets once the pipeline works. All of these datasets use the same IEEE 123-bus topology; only the number of simulated samples and sampling conditions change.
+
 ```bash
 # Install dependencies
 pip install -r requirements.txt
@@ -99,16 +101,18 @@ pip install -r requirements.txt
 # Verify the simulation engine works
 python src/verify_simulation.py
 
-# Generate a training dataset (5000 samples)
+# Generate a tiny development dataset for fast iteration
+python src/generate_dataset.py --n_samples 200 --output data/generated/dev.npz --seed 7
+
+# Generate larger training and test datasets for final runs
 python src/generate_dataset.py --n_samples 5000 --output data/generated/train.npz --seed 42
 
-# Generate a test dataset (1000 samples, different seed)
 python src/generate_dataset.py --n_samples 1000 --output data/generated/test.npz --seed 99
 
-# Generate a dataset without high-impedance faults (easier subset)
+# Optional: generate a dataset without high-impedance faults (easier subset)
 python src/generate_dataset.py --n_samples 3000 --output data/generated/train_no_hif.npz --no_hif
 
-# Generate a large dataset with heavy noise
+# Optional: generate a large dataset with heavy noise
 python src/generate_dataset.py --n_samples 10000 --output data/generated/train_noisy.npz \
     --noise_voltage 0.03 --noise_current 0.04
 ```
@@ -119,7 +123,8 @@ python src/generate_dataset.py --n_samples 10000 --output data/generated/train_n
 import numpy as np
 from src.generate_dataset import load_dataset
 
-data = load_dataset("data/generated/train.npz")
+# Use dev.npz while building/debugging; switch to train.npz/test.npz for final runs.
+data = load_dataset("data/generated/dev.npz")
 
 # Measurements: shape (n_samples, 8_monitors, 3_phases)
 X_voltage = data["voltages"]       # per-unit
@@ -147,22 +152,41 @@ graph = export_graph_for_gnn("data/ieee123/topology.json")
 
 ---
 
+## ML Prediction Tasks
+
+The generated labels support three related prediction tasks:
+
+| Task | Target | Label source | Meaning |
+|---|---|---|---|
+| Fault detection | Binary classification | `labels_type == 0` or `labels_section == -1` | Predict healthy vs. faulted |
+| Fault classification | Multiclass classification | `labels_type` | Predict fault type: healthy, SLG, LL, LLG, LLL, or LLLG |
+| Fault localization | Multiclass section classification | `labels_section` | Predict the faulted line section; `-1` means healthy, `0..122` index into `topology.json["lines"]` |
+
+`labels_phase` and `labels_resistance` provide additional fault metadata. They can be used for analysis, filtering, or optional auxiliary targets, but the core localization target is the line-section index, not a binary value.
+
+Target a solution that attempts all three prediction tasks, but this is a one-day exercise. It is acceptable if the final implementation is strongest on a subset, as long as the tradeoffs and remaining work are clear.
+
+The task specification below describes how to generate data, design a model, evaluate these predictions, and discuss the results.
+
+---
+
 ## Task Specification
 
-### Part 1: Data Generation Strategy (10 points)
+### Part 1: Data Generation Strategy
 
-Document your decisions around training data generation:
+Document your decisions around training data generation, e.g.:
 
+- Did you develop on a tiny `dev.npz` dataset before scaling to larger `train.npz` and held-out `test.npz` datasets?
 - How many samples did you generate, and why?
 - What fault type distribution did you use? Did you oversample rare or difficult cases?
 - How did you handle the noise level? Did you train on multiple noise conditions?
 - Did you augment the data in any way beyond what the simulator provides?
 
-### Part 2: Model Architecture (30 points)
+### Part 2: Model Architecture
 
-Design and implement an ML model for fault identification and localization. Your model must:
+Design and implement an ML model for fault identification and localization. Your model should:
 
-- Accept the sparse measurements (8 monitor buses, 3 phases each) as input
+- Accept the sparse measurements as input
 - Produce predictions for detection, classification, and localization
 - Incorporate the network topology in a principled way. This can be through:
   - Graph neural networks operating on the feeder graph
@@ -170,11 +194,9 @@ Design and implement an ML model for fault identification and localization. Your
   - Attention mechanisms weighted by electrical distance
   - Or another approach that demonstrably leverages the network structure
 
-Pure black-box models (e.g., a fully connected network on flattened measurements with no topological information) are not acceptable for full marks.
+### Part 3: Evaluation
 
-### Part 3: Evaluation (30 points)
-
-Evaluate your model on a held-out test set and report:
+Evaluate your model on a held-out test set, such as `data/generated/test.npz`, and report:
 
 - **Detection accuracy**: healthy vs. faulted classification
 - **Classification accuracy**: fault type (conditioned on correct detection)
@@ -184,11 +206,11 @@ Evaluate your model on a held-out test set and report:
 
 Provide calibration analysis: are your model's confidence scores meaningful?
 
-### Part 4: Analysis and Discussion (30 points)
+### Part 4: Analysis and Discussion
 
-Answer the following:
+If time permits, it would be useful to answer the following:
 
-1. **Observability limits**: For which sections is localization fundamentally difficult given only 8 monitors? Characterize the structural properties (graph distance from monitors, lateral branching) that predict high localization error.
+1. **Observability limits**: For which sections is localization fundamentally difficult given limited monitors? Characterize the structural properties (graph distance from monitors, lateral branching) that predict high localization error.
 
 2. **Sensor placement**: If you could add 3 additional monitors anywhere on the feeder, where would you place them? Quantify the improvement using your model.
 
@@ -227,25 +249,9 @@ python src/train.py
 python src/evaluate.py
 ```
 
+Use `dev.npz` for debugging and iteration. Report final metrics on a held-out `test.npz` generated with a different seed from training.
+
 **Report**: Maximum 3 pages (excluding figures and references). Structure: (1) data generation and architecture, (2) results, (3) analysis and discussion.
-
----
-
-## What We Are Evaluating
-
-This task does not have a single correct solution. We are evaluating:
-
-- How you integrate physical structure (the network graph, impedance relationships) into an ML framework
-- Whether your model degrades gracefully on hard cases (remote laterals, high-impedance faults) and whether you understand why
-- The quality of your uncertainty characterization -- does the model know when it does not know?
-- How thoughtfully you design the training distribution
-
-In the debrief, be prepared to:
-
-- Explain why a specific architecture choice was made and what alternatives you considered
-- Describe what would happen if a fault occurred on an unmonitored single-phase lateral far from any sensor
-- Discuss how your model would handle a fault type or resistance value outside the training distribution
-- Defend your sensor placement recommendations under adversarial questioning
 
 ---
 
@@ -266,9 +272,10 @@ ieee123-flisr/
       IEEE123Generators.dss
       topology.json
 
-    generated/                       # Training/test data (you generate this)
-      train.npz
-      test.npz
+    generated/                       # Generated data
+      dev.npz                        # Tiny development set for iteration
+      train.npz                      # Larger training set
+      test.npz                       # Held-out evaluation set
 
   src/
     fault_simulator.py               # Core simulation engine
